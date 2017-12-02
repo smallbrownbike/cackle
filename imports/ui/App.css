@@ -1,0 +1,27 @@
+.chatInput{
+	height: 5%;
+	width: 100%;
+	border: 1px solid black;
+	border-top: none;
+	box-sizing: border-box;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	font-size: 1.5em;
+}
+.viewBox{
+	height: 95%;
+	border: 1px solid black;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.container{
+	position: absolute;
+	top: 50%;
+	height: 600px;
+	width: 600px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.message{
+	padding: 1em;
+}
