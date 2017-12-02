@@ -52,7 +52,7 @@ export default class Chat extends React.Component{
 						<div className='text'>Text</div>
 					</div>
 				</div>
-				<input className='chatInput' />
+				<input placeholder='Message' className='chatInput' />
 				</div>
 			</div>
 		)
