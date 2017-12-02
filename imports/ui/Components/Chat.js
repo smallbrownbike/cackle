@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Scroll from 'react-scroll';
 import { withTracker } from 'meteor/react-meteor-data';
-const scroll = Scroll.animateScroll;
 
 import { Chats } from '../../api/chats'
+
+const roomName = window.location.pathname.slice(1);
 
 class ViewBox extends React.Component{
 	componentDidUpdate(){
 		if(this.lastMessage){
-			scroll
 			ReactDOM.findDOMNode(this.lastMessage).scrollIntoView()
 		}
 	}
@@ -43,6 +42,7 @@ class Chat extends React.Component{
 	handleKeyPress = e => {
 		if(e.key === 'Enter'){
 			Chats.insert({
+				room: roomName,
 				username: 'Farts',
 				text: this.state.value,
 				date: Date.now()
@@ -67,6 +67,6 @@ class Chat extends React.Component{
 
 export default withTracker(() => {
 	return {
-	  chats: Chats.find({}, {sort: {date: 1}}).fetch(),
+	  chats: Chats.find({room: roomName}, {sort: {date: 1}}).fetch(),
 	};
 })(Chat);
