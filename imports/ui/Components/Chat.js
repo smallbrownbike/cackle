@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import faker from 'faker';
 
 import { Chats } from '../../api/chats'
 
-const roomName = window.location.pathname.slice(1);
+const roomName = window.location.pathname.slice(1),
+			username = faker.internet.userName();
 
 class ViewBox extends React.Component{
 	componentDidUpdate(){
@@ -43,7 +45,7 @@ class Chat extends React.Component{
 		if(e.key === 'Enter'){
 			Chats.insert({
 				room: roomName,
-				username: 'Farts',
+				username: username,
 				text: this.state.value,
 				date: Date.now()
 			})
