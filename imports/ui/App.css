@@ -26,12 +26,10 @@
 }
 .message{
 	padding: 1em;
-	box-shadow: -1px 0.5px #00000066;
+	border-bottom: .5px solid #00000066;
 }
 body{
 	font-family: 'Montserrat', sans-serif;
-	color: rgb(22, 22, 22);
-	background: #6e5c5c;
 	background-attachment: fixed;
 }
 .chatBox{
@@ -50,4 +48,7 @@ body{
 .date{
 	font-size: .7em;
     color: #00000069;
+}
+.inputBox{
+	height: 60px;
 }
