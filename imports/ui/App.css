@@ -9,6 +9,7 @@
 	font-size: 1.5em;
 }
 .viewBox{
+	overflow: auto;
 	height: 95%;
 	border: 1px solid black;
 	border-top-left-radius: 5px;

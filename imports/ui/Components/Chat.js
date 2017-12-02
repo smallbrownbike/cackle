@@ -6,6 +6,22 @@ export default class Chat extends React.Component{
 			<div className='container'>
 				<div className='viewBox'>
 					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
+					<div className='message'>Hello world!</div>
 				</div>
 				<input className='chatInput' />
 			</div>
