@@ -84,7 +84,6 @@ class Chat extends React.Component{
 	render(){
 		return (
 			<div>
-				
 				<div className='container'>
 					{this.props.chats[0] && <Online chats={this.props.chats} />}
 					{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
@@ -97,12 +96,12 @@ class Chat extends React.Component{
 
 export default withTracker(() => {
 	const roomName = roomName = decodeURI(window.location.pathname.slice(1)) || 'general'
+	document.title = roomName;
 	Meteor.subscribe('chats', roomName, username);
 	const chats = Chats.find({room: roomName}).fetch(),
 				chatRoom = chats[0],
 				id = chatRoom && chatRoom._id
 				roomColor = chatRoom && chatRoom.roomColor;		
-	console.log(chats)
 	if(roomColor){
 		document.body.style.backgroundColor = roomColor;
 	}
