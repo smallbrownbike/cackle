@@ -15,16 +15,16 @@
 	height: calc(100% - 60px);
 }
 .container{
-	background: #f5f5f5;
-	overflow: hidden;
-	position: absolute;
-	top: 50%;
-	height: 90%;
-	width: 600px;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	box-shadow: -1px 1px 50px #252525;
-	border-radius: 10px;
+    background: #f5f5f5;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    height: 90%;
+    width: 800px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: -1px 1px 50px #252525;
+    border-radius: 10px;
 }
 .message{
 	padding: 1em;
@@ -47,4 +47,18 @@ body{
 }
 .inputBox{
 	height: 60px;
+}
+.online{
+	height: -webkit-fill-available;
+    border-right: .5px solid #00000066;
+    float: left;
+    padding: 1em;
+}
+.user{
+    padding: .5em 1em;
+    border-radius: 15px;
+    font-size: .7em;
+    text-align: center;
+    margin: .5em 0;
+    box-shadow: -1px 1px 1px #252525;
 }

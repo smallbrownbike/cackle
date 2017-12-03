@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import faker from 'faker';
 import { Meteor } from 'meteor/meteor';
+import randomcolor from 'randomcolor';
 
 import { Chats } from '../../api/chats';
 
@@ -11,12 +12,12 @@ const roomName = window.location.pathname.slice(1),
 
 class Online extends React.Component{
 	render(){
-		console.log(this.props)
 		return(
 			<div className='online'>
-				{this.props.users.map(user => {
+				<h1 style={{borderBottom: '.5px solid #00000066', margin: '0 0 .3em 0'}}>{this.props.chats[0].room}</h1>
+				{this.props.chats[0].users.map(user => {
 					return(
-						<div>
+						<div style={{backgroundColor: user.color}} className='user'>
 							{user.username}
 						</div>
 					)
@@ -79,10 +80,13 @@ class Chat extends React.Component{
 	}
 	render(){
 		return (
-			<div className='container'>
-				{this.props.chats[0] && <Online users={this.props.chats[0].users} />}
-				{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
-				<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
+			<div>
+				
+				<div className='container'>
+					{this.props.chats[0] && <Online chats={this.props.chats} />}
+					{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
+					<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
+				</div>
 			</div>
 		)
 	}
