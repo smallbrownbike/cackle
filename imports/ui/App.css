@@ -23,7 +23,7 @@
     min-width: 800px;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: -1px 1px 50px #252525;
+    box-shadow: -1px 1px 25px #848484;
     border-radius: 10px;
 }
 .message{
