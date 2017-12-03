@@ -33,7 +33,11 @@ if (Meteor.isServer) {
 			}
 			Chats.insert(initialData)
 		} else {
-			Chats.update({id: chats[0]._id}, {$push: {users: username}})
+			const newUser = {
+				username: username,
+				created: Date.now()
+			}
+			Chats.update({_id: chats[0]._id}, {$push: {users: newUser}})
 		}
 
 		this.onStop(() => {
