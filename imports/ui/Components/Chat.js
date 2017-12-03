@@ -7,17 +7,17 @@ import randomcolor from 'randomcolor';
 
 import { Chats } from '../../api/chats';
 
-const roomName = window.location.pathname.slice(1),
+const roomName = decodeURI(window.location.pathname.slice(1)),
 			username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
 
 class Online extends React.Component{
 	render(){
 		return(
 			<div className='online'>
-				<h1 style={{borderBottom: '.5px solid #00000066', margin: '0 0 .3em 0'}}>{this.props.chats[0].room}</h1>
+				<h1 style={{textAlign: 'center', paddingBottom: '.3em', wordWrap: 'break-word', borderBottom: '.5px solid #00000066', margin: '0 0 .3em 0'}}>{this.props.chats[0].room}</h1>
 				{this.props.chats[0].users.map(user => {
 					return(
-						<div style={{backgroundColor: user.color}} className='user'>
+						<div style={{border: user.username === username ? '1px solid #383838' : 'none', backgroundColor: user.color}} className='user'>
 							{user.username}
 						</div>
 					)
@@ -44,9 +44,13 @@ class MessageBox extends React.Component{
 		return(
 			<div className='messageBox'>
 				{this.props.chats[0].messages.map((chat, index) => {
+					const getColor = username => {
+						const user = this.props.chats[0].users.filter(user => user.username === username)[0];
+						return user ? user.color : null;
+					}
 					return (
 						<div key={index} ref={ref => this.lastMessage = ref} className='message'>
-							<div className='username'>{chat.username}</div>
+							<div style={{color: getColor(chat.username)}} className='username'>{chat.username}</div>
 							<div className='date'>{new Date(chat.date).toLocaleString()}</div>							
 							<div className='text'>{chat.message}</div>
 						</div>

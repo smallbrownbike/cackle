@@ -33,6 +33,7 @@
 body{
 	font-family: 'Montserrat', sans-serif;
 	background-attachment: fixed;
+	color: #383838;
 }
 .username{
 	font-size: .8em;
@@ -52,7 +53,9 @@ body{
 	height: -webkit-fill-available;
     border-right: .5px solid #00000066;
     float: left;
-    padding: 1em;
+	padding: 1em;
+	max-width: 25%;
+	min-width: 20%;
 }
 .user{
     padding: .5em 1em;
@@ -60,5 +63,4 @@ body{
     font-size: .7em;
     text-align: center;
     margin: .5em 0;
-    box-shadow: -1px 1px 1px #252525;
 }
