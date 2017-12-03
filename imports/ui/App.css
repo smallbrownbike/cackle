@@ -20,7 +20,7 @@
     position: absolute;
     top: 50%;
     height: 90%;
-    width: 800px;
+    min-width: 800px;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: -1px 1px 50px #252525;
