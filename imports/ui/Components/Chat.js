@@ -56,7 +56,7 @@ class Chat extends React.Component{
 							message: this.state.value,
 							date: Date.now()
 						};
-			Meteor.call('chats.update', id, message)
+			Meteor.call('chats.newMessage', id, message)
 			this.setState({value: ''})
 		}
 	}
@@ -72,10 +72,12 @@ class Chat extends React.Component{
 }
 
 export default withTracker(() => {
-	Meteor.subscribe('chats', roomName);
-	const chats = Chats.find({room: roomName}, {sort: {messages: {date: -1}}}).fetch(),
-				roomColor = chats[0] && chats[0].roomColor;
-	console.log(chats)
+	Meteor.subscribe('chats', roomName, username);
+	const chats = Chats.find({room: roomName}).fetch(),
+				chatRoom = chats[0],
+				id = chatRoom && chatRoom._id
+				roomColor = chatRoom && chatRoom.roomColor;		
+
 	if(roomColor){
 		document.body.style.backgroundColor = roomColor;
 	}
