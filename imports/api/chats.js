@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
-// import { check } from 'meteor/check';
+import randomcolor from 'randomcolor';
 
 export const Chats = new Mongo.Collection('chats');
 
@@ -10,11 +10,12 @@ if (Meteor.isServer) {
 		if(chats.length === 0){
 				const initialMessage = {
 					room: roomName,
+					roomColor: randomcolor.randomColor({luminosity: 'light'}),
 					messages: [
 						{
 							username: 'Botman',
 							message: `Welcome to ${roomName}! Say something interesting.`,
-							date: Date.now()
+							date: Date.now(),
 						}
 					]
 						

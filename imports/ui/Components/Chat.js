@@ -2,24 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import faker from 'faker';
-import randomcolor from 'randomcolor';
 import { Meteor } from 'meteor/meteor';
 
 import { Chats } from '../../api/chats'
 
 const roomName = window.location.pathname.slice(1),
-			username = faker.internet.userName();
+			username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
 
-class ViewBox extends React.Component{
-	componentDidUpdate(){
+class MessageBox extends React.Component{
+	scrollBottom = () => {
 		if(this.lastMessage){
 			ReactDOM.findDOMNode(this.lastMessage).scrollIntoView()
 		}
 	}
+	componentDidUpdate(){
+		this.scrollBottom()
+	}
+	componentDidMount(){
+		this.scrollBottom()
+	}
 
 	render(){
 		return(
-			<div className='viewBox'>
+			<div className='messageBox'>
 				{this.props.chats[0].messages.map((chat, index) => {
 					return (
 						<div key={index} ref={ref => this.lastMessage = ref} className='message'>
@@ -59,13 +64,8 @@ class Chat extends React.Component{
 		return (
 			<div className='container'>
 				<div className='online'></div>
-				<div className='chatBox'>
-					{this.props.chats[0] && <ViewBox chats={this.props.chats}/>}
-					
-					<div className='inputBox'>
-						<input placeholder='Message' className='chatInput' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
-					</div>
-				</div>
+				{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
+				<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
 			</div>
 		)
 	}
@@ -73,7 +73,13 @@ class Chat extends React.Component{
 
 export default withTracker(() => {
 	Meteor.subscribe('chats', roomName);
+	const chats = Chats.find({room: roomName}, {sort: {messages: {date: -1}}}).fetch(),
+				roomColor = chats[0] && chats[0].roomColor;
+	console.log(chats)
+	if(roomColor){
+		document.body.style.backgroundColor = roomColor;
+	}
 	return {
-	  chats: Chats.find({room: roomName}, {sort: {messages: {date: -1}}}).fetch(),
+	  chats: chats,
 	};
 })(Chat);
