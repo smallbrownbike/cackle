@@ -9,6 +9,23 @@ import { Chats } from '../../api/chats';
 const roomName = window.location.pathname.slice(1),
 			username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
 
+class Online extends React.Component{
+	render(){
+		console.log(this.props)
+		return(
+			<div className='online'>
+				{this.props.users.map(user => {
+					return(
+						<div>
+							{user.username}
+						</div>
+					)
+				})}
+			</div>
+		)
+	}
+}
+
 class MessageBox extends React.Component{
 	scrollBottom = () => {
 		if(this.lastMessage){
@@ -63,7 +80,7 @@ class Chat extends React.Component{
 	render(){
 		return (
 			<div className='container'>
-				<div className='online'></div>
+				{this.props.chats[0] && <Online users={this.props.chats[0].users} />}
 				{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
 				<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
 			</div>
