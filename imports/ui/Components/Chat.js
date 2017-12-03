@@ -7,8 +7,7 @@ import randomcolor from 'randomcolor';
 
 import { Chats } from '../../api/chats';
 
-const roomName = decodeURI(window.location.pathname.slice(1)),
-			username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
+const username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
 
 class Online extends React.Component{
 	render(){
@@ -17,7 +16,7 @@ class Online extends React.Component{
 				<h1 style={{textAlign: 'center', paddingBottom: '.3em', wordWrap: 'break-word', borderBottom: '.5px solid #00000066', margin: '0 0 .3em 0'}}>{this.props.chats[0].room}</h1>
 				{this.props.chats[0].users.map(user => {
 					return(
-						<div style={{border: user.username === username ? '1px solid #383838' : 'none', backgroundColor: user.color}} className='user'>
+						<div style={{border: user.username === username ? '2px solid #383838' : 'none', backgroundColor: user.color}} className='user'>
 							{user.username}
 						</div>
 					)
@@ -97,6 +96,7 @@ class Chat extends React.Component{
 }
 
 export default withTracker(() => {
+	const roomName = roomName = decodeURI(window.location.pathname.slice(1)) || 'general'
 	Meteor.subscribe('chats', roomName, username);
 	const chats = Chats.find({room: roomName}).fetch(),
 				chatRoom = chats[0],

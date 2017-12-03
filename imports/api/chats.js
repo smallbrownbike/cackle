@@ -21,7 +21,7 @@ if (Meteor.isServer) {
 					{
 						username: username,
 						created: Date.now(),
-						color: randomcolor.randomColor({luminosity: 'light'})
+						color: randomcolor.randomColor({luminosity: 'dark'})
 					}
 				],
 				messages: [
@@ -38,7 +38,7 @@ if (Meteor.isServer) {
 			const newUser = {
 				username: username,
 				created: Date.now(),
-				color: randomcolor.randomColor({luminosity: 'light'})
+				color: randomcolor.randomColor({luminosity: 'dark'})
 			}
 			Chats.update({_id: chats[0]._id}, {$push: {users: newUser}})
 		}
