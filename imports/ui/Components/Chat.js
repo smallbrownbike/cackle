@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import faker from 'faker';
 import { Meteor } from 'meteor/meteor';
 
-import { Chats } from '../../api/chats'
+import { Chats } from '../../api/chats';
 
 const roomName = window.location.pathname.slice(1),
 			username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
@@ -77,7 +77,7 @@ export default withTracker(() => {
 				chatRoom = chats[0],
 				id = chatRoom && chatRoom._id
 				roomColor = chatRoom && chatRoom.roomColor;		
-
+	console.log(chats)
 	if(roomColor){
 		document.body.style.backgroundColor = roomColor;
 	}
