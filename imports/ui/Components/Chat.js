@@ -135,7 +135,7 @@ class Chat extends React.Component{
 		this.setState({value: e.target.value})
 	}
 	handleKeyPress = e => {
-		if(this.state.value && e.key === 'Enter'){
+		if(this.state.value && username && e.key === 'Enter'){
 			const id = this.props.chats[0]._id,
 						message = {
 							username: username,
