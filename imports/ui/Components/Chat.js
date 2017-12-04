@@ -29,6 +29,11 @@ class Modal extends React.Component{
 			return room.users.filter(user => user.username === username).length > 0;
 		}
 	}
+	handleKeyPress = e => {
+		if(e.key === 'Enter'){
+			this.handleClick();
+		}
+	}
 	handleClick = () => {
 		const newUsername = this.state.username.trim();
 		let color = this.state.color.trim();
@@ -59,10 +64,10 @@ class Modal extends React.Component{
 				<div style={{width: '310px'}} className='container'>
 					<div style={{width: '220px', margin: '0 auto'}}>
 						<h2 style={{marginBottom: 0}}>username</h2>
-						<input style={this.state.error ? {borderColor: '#ff0000'} : null} name='username' onChange={this.handleChange} value={this.state.username} className='newInfo' />
+						<input onKeyPress={this.handleKeyPress} style={this.state.error ? {borderColor: '#ff0000'} : null} name='username' onChange={this.handleChange} value={this.state.username} className='newInfo' />
 						{this.state.error && <h5 style={{marginTop: '.3em'}}>{this.state.errorMessage}</h5>}
 						<h2 style={{marginBottom: 0}}>favorite color</h2>
-						<input name='color' onChange={this.handleChange} value={this.state.color} className='newInfo' />
+						<input onKeyPress={this.handleKeyPress} name='color' onChange={this.handleChange} value={this.state.color} className='newInfo' />
 						<h5 style={{marginTop: '.3em', display: 'inline'}}>Change background color</h5><input onChange={this.handleChange} style={{marginLeft: '.3em'}} type='checkbox' />
 						<button onClick={this.handleClick} className='button'>create</button>
 					</div>
