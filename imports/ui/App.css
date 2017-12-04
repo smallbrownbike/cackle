@@ -27,6 +27,11 @@
 .message{
 	padding: 1em;
 	border-bottom: .5px solid #00000066;
+	-webkit-animation: fadein .2s;
+	-moz-animation: fadein .2s;
+	-ms-animation: fadein .2s;
+	-o-animation: fadein .2s;
+	animation: fadein .2s;
 }
 body{
 	margin: 0em;
@@ -69,7 +74,36 @@ body{
     border-radius: 15px;
     font-size: .7em;
     text-align: center;
-    margin: .5em 0;
+	margin: .5em 0;
+	-webkit-animation: fadein .3s;
+	-moz-animation: fadein .3s;
+	-ms-animation: fadein .3s;
+	-o-animation: fadein .3s;
+	animation: fadein .3s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 .newInfo{
 	width: 220px;
