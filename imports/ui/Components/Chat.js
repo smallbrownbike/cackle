@@ -63,10 +63,10 @@ class Modal extends React.Component{
 			<div className='modal'>
 				<div style={{width: '310px'}} className='container'>
 					<div style={{width: '220px', margin: '0 auto'}}>
-						<h2 style={{marginBottom: 0}}>username</h2>
+						<h2 style={{marginBottom: 0, marginTop: '2em', fontSize: '1em'}}>username</h2>
 						<input onKeyPress={this.handleKeyPress} style={this.state.error ? {borderColor: '#ff0000'} : null} name='username' onChange={this.handleChange} value={this.state.username} className='newInfo' />
 						{this.state.error && <h5 style={{marginTop: '.3em'}}>{this.state.errorMessage}</h5>}
-						<h2 style={{marginBottom: 0}}>favorite color</h2>
+						<h2 style={{marginBottom: 0, fontSize: '1em'}}>favorite color</h2>
 						<input onKeyPress={this.handleKeyPress} name='color' onChange={this.handleChange} value={this.state.color} className='newInfo' />
 						<h5 style={{marginTop: '.3em', display: 'inline'}}>Change background color</h5><input onChange={this.handleChange} style={{marginLeft: '.3em'}} type='checkbox' />
 						<button onClick={this.handleClick} className='button'>create</button>
@@ -152,7 +152,7 @@ class Chat extends React.Component{
 	render(){
 		return (
 			<div>
-				<div style={{height: '90%', minWidth: '800px'}} className='container'>
+				<div style={{height: '90%', minWidth: '800px', boxShadow: '-1px 1px 25px #848484'}} className='container'>
 					{this.props.chats[0] && <Online chats={this.props.chats} />}
 					{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
 					<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
