@@ -69,7 +69,7 @@ class Modal extends React.Component{
 						<h2 style={{marginBottom: 0, fontSize: '1em'}}>favorite color</h2>
 						<input onKeyPress={this.handleKeyPress} name='color' onChange={this.handleChange} value={this.state.color} className='newInfo' />
 						<h5 style={{marginTop: '.3em', display: 'inline'}}>Change background color</h5><input onChange={this.handleChange} style={{marginLeft: '.3em'}} type='checkbox' />
-						<button onClick={this.handleClick} className='button'>create</button>
+						<button onClick={this.handleClick} className='button'>join</button>
 					</div>
 				</div>
 			</div>
