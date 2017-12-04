@@ -13,15 +13,18 @@ const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
 class Modal extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {username: username || `Stranger${faker.random.number({min: 1, max: 9999})}`, color: colors[Math.floor(Math.random() * colors.length)], error: false, errorMessage: ''}
+		this.state = {username: username || `Stranger${faker.random.number({min: 1, max: 9999})}`, color: colors[Math.floor(Math.random() * colors.length)], error: false, errorMessage: '', changeBG: false}
 	}
 	handleChange = e => {
 		let newState = {...this.state}
-		newState[e.target.getAttribute('name')] = e.target.value;
+		if(e.target.type === 'checkbox'){
+			newState['changeBG'] = !this.state.changeBG;
+		} else {
+			newState[e.target.getAttribute('name')] = e.target.value;
+		}
 		this.setState(newState)
 	}
 	userExists = (room, username) => {
-		console.log(room)
 		if(room){
 			return room.users.filter(user => user.username === username).length > 0;
 		}
@@ -31,7 +34,6 @@ class Modal extends React.Component{
 		let color = this.state.color.trim();
 		if(colors.includes(color)){
 			color = randomcolor.randomColor({hue: color, luminosity: 'light'})
-			document.body.style.backgroundColor = color;
 		}
 		if(!newUsername) return this.setState({error: true, errorMessage: 'This field cannot be blank'})
 		const room = Chats.find({room: this.props.chats[0].room}).fetch()[0];
@@ -44,6 +46,9 @@ class Modal extends React.Component{
 			Meteor.call('chats.updateUser', this.props.chats[0]._id, updatedUser)
 			username = newUsername;
 			this.props.handleModal()
+			if(this.state.changeBG){
+				document.body.style.backgroundColor = color;
+			}
 		} else {
 			this.setState({error: true, errorMessage: 'That username is taken'})
 		}
@@ -58,6 +63,7 @@ class Modal extends React.Component{
 						{this.state.error && <h5 style={{marginTop: '.3em'}}>{this.state.errorMessage}</h5>}
 						<h2 style={{marginBottom: 0}}>favorite color</h2>
 						<input name='color' onChange={this.handleChange} value={this.state.color} className='newInfo' />
+						<h5 style={{marginTop: '.3em', display: 'inline'}}>Change background color</h5><input onChange={this.handleChange} style={{marginLeft: '.3em'}} type='checkbox' />
 						<button onClick={this.handleClick} className='button'>create</button>
 					</div>
 				</div>
