@@ -7,7 +7,8 @@ import randomcolor from 'randomcolor';
 
 import { Chats } from '../../api/chats';
 
-const username = `Stranger${faker.random.number({min: 1, max: 9999})}`;
+const username = `Stranger${faker.random.number({min: 1, max: 9999})}`,
+			color = randomcolor.randomColor({luminosity: 'light'});
 
 class Online extends React.Component{
 	render(){
@@ -16,7 +17,7 @@ class Online extends React.Component{
 				<h1 style={{textAlign: 'center', paddingBottom: '.3em', wordWrap: 'break-word', borderBottom: '.5px solid #00000066', margin: '0 0 .3em 0'}}>{this.props.chats[0].room}</h1>
 				{this.props.chats[0].users.map(user => {
 					return(
-						<div style={{border: user.username === username ? '2px solid #383838' : 'none', backgroundColor: user.color}} className='user'>
+						<div style={{border: `2px solid ${user.color}`}} className='user'>
 							{user.username}
 						</div>
 					)
@@ -43,13 +44,9 @@ class MessageBox extends React.Component{
 		return(
 			<div className='messageBox'>
 				{this.props.chats[0].messages.map((chat, index) => {
-					const getColor = username => {
-						const user = this.props.chats[0].users.filter(user => user.username === username)[0];
-						return user ? user.color : null;
-					}
 					return (
 						<div key={index} ref={ref => this.lastMessage = ref} className='message'>
-							<div style={{color: getColor(chat.username)}} className='username'>{chat.username}</div>
+							<div style={chat.username === username ? {color: color} : null} className='username'>{chat.username}</div>
 							<div className='date'>{new Date(chat.date).toLocaleString()}</div>							
 							<div className='text'>{chat.message}</div>
 						</div>
@@ -97,11 +94,11 @@ class Chat extends React.Component{
 export default withTracker(() => {
 	const roomName = roomName = decodeURI(window.location.pathname.slice(1)) || 'general'
 	document.title = roomName;
-	Meteor.subscribe('chats', roomName, username);
+	Meteor.subscribe('chats', roomName, username, color);
 	const chats = Chats.find({room: roomName}).fetch(),
 				chatRoom = chats[0],
-				id = chatRoom && chatRoom._id
-				roomColor = chatRoom && chatRoom.roomColor;		
+				id = chatRoom && chatRoom._id,
+				roomColor = chatRoom && chatRoom.roomColor;
 	if(roomColor){
 		document.body.style.backgroundColor = roomColor;
 	}

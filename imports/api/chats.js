@@ -7,7 +7,7 @@ import faker from 'faker';
 export const Chats = new Mongo.Collection('chats');
 
 if (Meteor.isServer) {
-	Meteor.publish('chats', function chatsPublication(roomName, username) {
+	Meteor.publish('chats', function chatsPublication(roomName, username, color) {
 		function queryDB(query){
 			return Chats.find(query).fetch()
 		}
@@ -17,12 +17,12 @@ if (Meteor.isServer) {
 		if(chats.length === 0){
 			const initialData = {
 				room: roomName,
-				roomColor: randomcolor.randomColor({luminosity: 'light'}),
+				roomColor: null,
 				users: [
 					{
 						username: username,
 						created: Date.now(),
-						color: randomcolor.randomColor({luminosity: 'dark'})
+						color: color
 					}
 				],
 				messages: [
@@ -39,7 +39,7 @@ if (Meteor.isServer) {
 			const newUser = {
 				username: username,
 				created: Date.now(),
-				color: randomcolor.randomColor({luminosity: 'dark'})
+				color: color
 			}
 			Chats.update({_id: chats[0]._id}, {$push: {users: newUser}})
 		}
