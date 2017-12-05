@@ -152,10 +152,12 @@ class Chat extends React.Component{
 	render(){
 		return (
 			<div>
-				<div style={{height: '90%', minWidth: '800px', boxShadow: '-1px 1px 25px #848484'}} className='container'>
+				<div style={{height: '90%', width: '800px', boxShadow: '-1px 1px 25px #848484'}} className='container'>
 					{this.props.chats[0] && <Online chats={this.props.chats} />}
+					<div style={{paddingLeft: '190px'}}>
 					{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
 					<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
+					</div>
 				</div>
 				{this.state.modal && <Modal handleModal={this.handleModal} chats={this.props.chats[0] && this.props.chats}/>}
 			</div>

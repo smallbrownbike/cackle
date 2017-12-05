@@ -1,9 +1,10 @@
 .inputBox{
-	padding: 0em 1em;
+	padding-left: 15px;
+	padding-right: 15px;
 	outline: none;
 	background-color: transparent;
 	height: 60px;
-	width: 100%;
+	width: 610px;
 	border: none;
 	box-sizing: border-box;
 	font-size: 1.2em;
@@ -64,9 +65,8 @@ body{
 	height: -webkit-fill-available;
     border-right: .5px solid #00000066;
     float: left;
-	padding: 1em;
-	max-width: 25%;
-	min-width: 20%;
+	padding: 20px;
+	width: 150px;
 }
 .user{
     padding: .5em 1em;
