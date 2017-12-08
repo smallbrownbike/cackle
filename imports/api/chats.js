@@ -20,6 +20,7 @@ if (Meteor.isServer) {
 		const chats = queryDB({room: roomName});
 		if(chats.length === 0){
 			const initialData = {
+				created: new Date(),
 				room: roomName,
 				roomColor: null,
 				users: [],
