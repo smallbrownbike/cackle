@@ -19,7 +19,7 @@ function resetTimeout(id){
 			date: Date.now()
 		};
 		Chats.update({_id: id}, {$push: {messages: message}})
-	}, 10000)
+	}, 480000)
 }
 function createNewUser(id, username, color){
 	const newUser = {
