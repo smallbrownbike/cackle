@@ -5,25 +5,47 @@ import randomcolor from 'randomcolor';
 import faker from 'faker';
 
 export const Chats = new Mongo.Collection('chats');
+
+let timeout;
+
+function resetTimeout(id){
+	if(timeout){
+		clearTimeout(timeout)
+	}
+	timeout = setTimeout(() => {
+		const message = {
+			username: 'Botman',
+			message: "This room will be demolished soon. Send a message to keep 'er alive.",
+			date: Date.now()
+		};
+		Chats.update({_id: id}, {$push: {messages: message}})
+	}, 10000)
+}
 function createNewUser(id, username, color){
 	const newUser = {
 		username: username,
 		color: color
 	}
-	Chats.update({_id: id}, {$push: {users: newUser}})
+	Chats.update({_id: id}, {$push: {users: newUser}, $set: {lastUpdate: new Date()}})
+	resetTimeout(id)
 }
 function queryDB(query){
 	return Chats.find(query).fetch()
 }
 if (Meteor.isServer) {
+	Chats.allow({
+		update: () => {
+			return true;
+		}
+	});
 	Meteor.publish('chats', function chatsPublication(roomName, username) {
 		const chats = queryDB({room: roomName});
 		if(chats.length === 0){
 			const initialData = {
-				created: new Date(),
 				room: roomName,
 				roomColor: null,
 				users: [],
+				lastUpdate: new Date(),
 				messages: [
 					{
 						username: 'Botman',
@@ -36,8 +58,11 @@ if (Meteor.isServer) {
 			Chats.insert(initialData)
 		}
 		this.onStop(() => {
-			const id = queryDB({room: roomName})[0]._id;
-			Chats.update({_id: id}, {$pull: {users: {username: username}}})
+			const chatRoom = queryDB({room: roomName})[0];
+			if(chatRoom){
+				const id = chatRoom._id;
+				Chats.update({_id: id}, {$pull: {users: {username: username}}})
+			}
 		})
 		return Chats.find({room: roomName});
 	});
@@ -45,7 +70,8 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	'chats.newMessage'(id, message) {
-		Chats.update({_id: id}, {$push: {messages: message}})
+		Chats.update({_id: id}, {$push: {messages: message}, $set: {lastUpdate: new Date()}})
+		resetTimeout(id)
 	},
 	'chats.updateUser'(id, userInfo) {
 		createNewUser(id, userInfo.username, userInfo.color)

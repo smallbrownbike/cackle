@@ -135,3 +135,11 @@ body{
 h2{
 	margin-bottom: .5em;
 }
+.link{
+	color: #26b9ff;
+	cursor: pointer;
+	transition: color, .2s
+}
+.link:hover {
+    color: #2089bb;
+}

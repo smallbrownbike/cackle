@@ -8,7 +8,9 @@ import randomcolor from 'randomcolor';
 import { Chats } from '../../api/chats';
 
 let username = null;
-const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
+const roomName = decodeURI(window.location.pathname.slice(1)) || 'general',
+	  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
+document.title = roomName;
 
 class Modal extends React.Component{
 	constructor(props){
@@ -149,12 +151,26 @@ class Chat extends React.Component{
 	handleModal = () => {
 		this.setState({modal: !this.state.modal})
 	}
+	componentWillReceiveProps(props){
+		if(props.chats.length <= 0){
+			this.setState({demolished: true})
+		}
+	}
 	render(){
+		if(this.state.demolished){
+			return(
+				<div style={{textAlign: 'center', padding: '2em', boxShadow: '-1px 1px 25px #848484'}} className='container'>
+					<h1>This room has been demolished!</h1>
+					<h3>It was too quiet, so we blew up the joint.</h3>
+					<a className='link' onClick={() => {location.reload()}}>refresh</a>
+				</div>
+			)
+		}
 		return (
 			<div>
 				<div style={{height: '90%', width: '800px', boxShadow: '-1px 1px 25px #848484'}} className='container'>
 					{this.props.chats[0] && <Online chats={this.props.chats} />}
-					<div style={{paddingLeft: '190px'}}>
+					<div style={{paddingLeft: '190px', height: '100%'}}>
 					{this.props.chats[0] && <MessageBox chats={this.props.chats}/>}
 					<input placeholder='Message' className='inputBox' value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
 					</div>
@@ -166,17 +182,15 @@ class Chat extends React.Component{
 }
 
 export default withTracker(() => {
-	const roomName = roomName = decodeURI(window.location.pathname.slice(1)) || 'general';
-	document.title = roomName;
 	Meteor.subscribe('chats', roomName, username);
 	const chats = Chats.find({room: roomName}).fetch(),
-				chatRoom = chats[0],
-				id = chatRoom && chatRoom._id,
-				roomColor = chatRoom && chatRoom.roomColor;
+		  chatRoom = chats[0],
+		  id = chatRoom && chatRoom._id,
+		  roomColor = chatRoom && chatRoom.roomColor;
 	if(roomColor){
 		document.body.style.backgroundColor = roomColor;
 	}
 	return {
-	  chats: chats,
+	  chats: chats
 	};
 })(Chat);
